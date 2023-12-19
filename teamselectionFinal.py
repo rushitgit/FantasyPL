@@ -1,16 +1,9 @@
 ########################### can be viewed as comstraint satisfaction problem #########################################
-
-
-
 import pandas as pd
 
 player_data = pd.read_csv('datasets\TopPlayersWithSentiments.csv') 
-
 positions_to_select = {'GKP': 1, 'FWD': 3, 'MID': 4, 'DEF': 4}
-
-
 player_data = player_data.sort_values(by='PREDICTED_POINTS', ascending=False)
-
 
 selected_players = []
 
