@@ -43,7 +43,7 @@ with col2:
 
 col3,col4,col5,col6 = st.columns((4,6,30,6))
 with col4:
-    st.image('images/final_team.jpg', width= 500)
+    st.image('images/final_team.png', width= 500)
     #st.image('teamnew.png')
     st.markdown("<h2 style='text-align: left; color: black;'>Substitutes:</h2>", unsafe_allow_html=True) 
     st.markdown("<h5 style='text-align: left; color: black;'>Neto(4.6m)</h5>", unsafe_allow_html=True) 
