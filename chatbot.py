@@ -46,20 +46,12 @@ def generate_text(query, data_frame_1):
     )
     return response.choices[0].text.strip()
 
-# Main function
 def main():
-    #set_background('images/background.png')  # Change 'images/background.png' to your actual background image path
     st.title("Fantasy Premier League Chatbot")
-    # st.image("chatbot_logo.png", width=200)  # Add your chatbot logo or emoticon
-
-    # Load CSV data (Default file paths, change as needed)
     data_frame_1 = load_csv("datasets\TopPlayersWithSentiments.csv")
-
-    # User query input
     query = st.text_input("Chat with us.")
     
-    if query:
-        # Generate and display textual information
+    if query:       
         result = generate_text(query, data_frame_1)
         st.subheader("Generated Text:")
         st.write(result)
