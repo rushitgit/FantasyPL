@@ -3,22 +3,33 @@ import streamlit as st
 import pandas as pd
 import openai
 import os 
-
+import base64
 load_dotenv()
 # Set your OpenAI API key
 openai.api_key = os.getenv("OPENAI_API_KEY")
-background_path = "images/background.png"
+background_path = "images\background.png"
 # Function to set the background image
 
-background_code = f"""
-<style>
-    body {{
-        background-image: url("{background_path}");
-        background-size: cover;
-    }}
-</style>
-"""
-st.markdown(background_code, unsafe_allow_html=True)
+
+def get_base64(bin_file):
+    with open(bin_file, 'rb') as f:
+        data = f.read()
+    return base64.b64encode(data).decode()
+
+
+def set_background(png_file):
+    bin_str = get_base64(png_file)
+    page_bg_img = '''
+    <style>
+    .stApp {
+    background-image: url("data:image/png;base64,%s");
+    background-size: cover;
+    }
+    </style>
+    ''' % bin_str
+    st.markdown(page_bg_img, unsafe_allow_html=True)
+set_background('images/background.png')
+
 
 # Load CSV function
 def load_csv(file_path):
@@ -38,14 +49,14 @@ def generate_text(query, data_frame_1):
 # Main function
 def main():
     #set_background('images/background.png')  # Change 'images/background.png' to your actual background image path
-    st.title("OpenAI Chatbot with CSV Payloads")
+    st.title("Fantasy Premier League Chatbot")
     # st.image("chatbot_logo.png", width=200)  # Add your chatbot logo or emoticon
 
     # Load CSV data (Default file paths, change as needed)
     data_frame_1 = load_csv("datasets\TopPlayersWithSentiments.csv")
 
     # User query input
-    query = st.text_input("Ask a question:")
+    query = st.text_input("Chat with us.")
     
     if query:
         # Generate and display textual information
@@ -54,6 +65,9 @@ def main():
         st.write(result)
     else:
         st.info("Enter a question to get started.")
+
+
+    st.write("We are a statistical based chatbot for aiding you to make the best decisions for your Fantasy Premier League team.")
 
 if __name__ == "__main__":
     main()
