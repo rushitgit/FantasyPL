@@ -8,24 +8,17 @@ from textblob import TextBlob
 from nltk.sentiment import SentimentIntensityAnalyzer
 import numpy as np
 top_players_data = pd.read_csv(r'datasets\TopPlayers.csv')
-
-
 articles_data = pd.read_csv(r'datasets\articles_set.csv', encoding='latin1')
-
 unique_players = top_players_data['PLAYER'].unique()
-
-
 sentiment_scores = []
-
 
 for player_name in unique_players:
    
     player_articles = articles_data[articles_data['text'].str.contains(player_name, case=False, na=False)]
     if not player_articles.empty:
-        # Combine all articles for the player
         combined_text = ' '.join(player_articles['text'])
 
-        # Use TextBlob for sentiment analysis
+        # Using TextBlob for sentiment analysis
         blob = TextBlob(combined_text)
         sentiment_score = blob.sentiment.polarity
 
@@ -39,12 +32,6 @@ top_players_with_sentiment = pd.merge(top_players_data, sentiment_df, on='PLAYER
 print(top_players_with_sentiment)
 
 
-
-
-
-
-
-# Select relevant columns
 top_players_sentiments_df = top_players_with_sentiment[['PLAYER', 'TEAM', 'POSITION','COST','OWNERSHIP %', 'PREDICTED_POINTS','Sentiment_Score']]
 
 conditions = [
@@ -63,4 +50,4 @@ print(top_players_sentiments_df)
 top_players_sentiments_df.to_csv('datasets\TopPlayersWithSentiments.csv')
 
 
-
+################################ end #########################################
