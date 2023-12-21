@@ -63,7 +63,9 @@ def predict_and_select_top_players(player_model, player_data):
     """
     predicted_player_points = player_model.predict(player_data[['MINUTES', 'FORM', 'BONUS', 'POINTS/GAME', 'OWNERSHIP %', 'xG', 'xGI']])
 
-    player_data['PREDICTED_POINTS'] = predicted_player_points / 11
+
+    """changed the formula to predicted_player_points / (player_data['MINUTES'] / 90) from predicted_player_points / 11, 11 was taken as average gameweeks played by a player in the game up until gw 17."""
+    player_data['PREDICTED_POINTS'] = predicted_player_points / (player_data['MINUTES'] / 90)
 
     top_players = player_data.sort_values('PREDICTED_POINTS', ascending=False)
 
