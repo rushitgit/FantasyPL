@@ -37,8 +37,8 @@ player_model.fit(X_player, y_player)
 
 predicted_player_points = player_model.predict(X_player)
 
-
-player_data['PREDICTED_POINTS'] = predicted_player_points / 11
+#changed to total minutes/90 instead of the average games played. 
+player_data['PREDICTED_POINTS'] = predicted_player_points / (player_data['MINUTES'] /90)
 
 top_players = player_data.sort_values('PREDICTED_POINTS', ascending=False)
 
